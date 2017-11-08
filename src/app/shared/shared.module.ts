@@ -15,9 +15,7 @@ import {AccountService} from './auth/account.service';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
-    },
-    AuthService,
-    AccountService
+    }
   ]
 })
 export class SharedModule { }

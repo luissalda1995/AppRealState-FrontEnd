@@ -47,7 +47,7 @@ export class SigninComponent implements OnInit {
       /*const redirect = this.stateStorageService.getUrl();
       if (redirect) {
         this.router.navigate([redirect]);
-      }*7
+      }*/
     }).catch(() => {
       this.authenticationError = true;
     });
