@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
 
 const password = new FormControl('', Validators.required);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
@@ -14,7 +16,7 @@ const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 export class SignupComponent implements OnInit {
 
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
     this.form = this.fb.group( {
@@ -24,8 +26,12 @@ export class SignupComponent implements OnInit {
     } );
   }
 
-  onSubmit() {
-    this.router.navigate( ['/'] );
+  onSubmit(): Observable<Response> {
+    const account = {
+      username: this.form.value.uname,
+      password: this.form.value.password
+    };
+    return this.http.post('api/account', account);
   }
 
 }
